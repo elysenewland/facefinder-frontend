@@ -1,0 +1,68 @@
+:root {
+  --primary: hsla(221, 83%, 53%, 1);
+  --primary-light: hsla(213, 92%, 55%, 1);
+
+  --gray-500: hsla(220, 47%, 11%, 1);
+  --gray-400: hsla(220, 25%, 27%, 1);
+  --gray-300: hsla(220, 13%, 53%, 1);
+  --gray-200: hsla(220, 13%, 91%, 1);
+  --gray-100: hsla(220, 20%, 98%, 1);
+
+  --white: hsla(0, 0%, 100%, 1);
+
+  --error-red: hsla(345, 100%, 45%, 1);
+
+  --container-width: 1400px;
+  --container-padding: 1rem;
+}
+
+body {
+  margin: auto;
+  font-family: "Lexend", sans-serif;
+  background-color: var(--white);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  color: var(--white);
+  background-color: var(--primary);
+  border-radius: 1.5rem;
+  cursor: pointer;
+}
+
+.btn:hover,
+.btn:focus {
+  background-color: var(--primary-light);
+  outline: none;
+}
+
+.container {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+
+@media (min-width: 768px) {
+  :root {
+    --container-padding: 2vw;
+  }
+}

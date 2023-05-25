@@ -1,0 +1,24 @@
+footer {
+  color: var(--gray-400);
+  text-align: center;
+  font-size: 0.875rem;
+  line-height: 1;
+  position: relative;
+  padding: 0.75rem 1.5rem;
+  width: 100%;
+}
+
+.footer-text {
+  margin: 0;
+}
+
+.footer-link {
+  color: inherit;
+}
+
+@media (min-width: 800px) {
+  footer {
+    text-align: right;
+    padding-right: 2rem;
+  }
+}
