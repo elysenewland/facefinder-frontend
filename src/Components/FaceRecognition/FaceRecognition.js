@@ -2,7 +2,7 @@ import React from "react";
 import "./FaceRecognition.css";
 
 // Displays image from url and bounding box around face
-const FaceRecognition = ({ imageUrl, box }) => {
+const FaceRecognition = ({ imageUrl, boxes }) => {
   return (
     <div className="facerecognition-image-center">
       <div className="facerecognition-image-wrapper">
@@ -16,15 +16,23 @@ const FaceRecognition = ({ imageUrl, box }) => {
             height="auto"
           />
         )}
-        <div
-          className="bounding-box"
-          style={{
-            top: box.topRow,
-            right: box.rightCol,
-            bottom: box.bottomRow,
-            left: box.leftCol,
-          }}
-        ></div>
+        {boxes.map((box, index) => (
+          <div
+            key={index}
+            className="bounding-box"
+            style={{
+              top: box.topRow,
+              right: box.rightCol,
+              bottom: box.bottomRow,
+              left: box.leftCol,
+            }}
+          ></div>
+        ))}
+        {imageUrl && (
+          <p>
+            We found <strong>{boxes.length}</strong> faces.
+          </p>
+        )}
       </div>
     </div>
   );

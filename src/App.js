@@ -4,7 +4,7 @@ import Signin from "./Components/Signin/Signin";
 import Register from "./Components/Register/Register";
 import FaceRecognition from "./Components/FaceRecognition/FaceRecognition";
 import ImageLinkForm from "./Components/ImageLinkForm/ImageLinkForm";
-import Rank from "./Components/Rank/Rank";
+import Hero from "./Components/Hero/Hero";
 import Footer from "./Components/Footer/Footer";
 import isUrl from "is-url";
 import "./App.css";
@@ -13,7 +13,7 @@ import "./App.css";
 const initialState = {
   input: "",
   imageUrl: "",
-  box: {},
+  boxes: [],
   route: "signin",
   isSignedIn: false,
   user: {
@@ -47,22 +47,29 @@ class App extends Component {
 
   // Use Clarifai API data to calculate the box for face detection using bounding box data
   calculateFaceLocation = (data) => {
-    const clarifaiFace =
-      data.outputs[0].data.regions[0].region_info.bounding_box;
-    const image = document.getElementById("inputimage");
-    const width = Number(image.width);
-    const height = Number(image.height);
-    return {
-      leftCol: clarifaiFace.left_col * width,
-      topRow: clarifaiFace.top_row * height,
-      rightCol: width - clarifaiFace.right_col * width,
-      bottomRow: height - clarifaiFace.bottom_row * height,
-    };
+    // Return an empty array if no output data or face regions can be found in the image
+    if (!data.outputs || !data.outputs[0].data.regions) return [];
+
+    // Map over the data to determine if there are any regions (or faces) as defined by the clarifai API
+    return data.outputs[0].data.regions.map((region) => {
+      const clarifaiFace = region.region_info.bounding_box;
+      const image = document.getElementById("inputimage");
+      const width = Number(image.width);
+      const height = Number(image.height);
+
+      // Constructs an object with the calculated coordinates of the bounding box as determined by the face region in const clarifaiFace with the image dimensions
+      return {
+        leftCol: clarifaiFace.left_col * width,
+        topRow: clarifaiFace.top_row * height,
+        rightCol: width - clarifaiFace.right_col * width,
+        bottomRow: height - clarifaiFace.bottom_row * height,
+      };
+    });
   };
 
-  // Display box around face
-  displayFaceBox = (box) => {
-    this.setState({ box: box });
+  // Display bounding box around faces
+  displayFaceBox = (boxes) => {
+    this.setState({ boxes: boxes });
   };
 
   // When the input is changed, set state to target the new input
@@ -70,7 +77,7 @@ class App extends Component {
     this.setState({ input: event.target.value, isUrlValid: true });
   };
 
-  // When detect is clicked, first check that the URL entered is valid, then connect with Clarifai API and display the bounding box around the face in the image
+  // When detect faces is clicked, first check that the URL entered is valid, then connect with Clarifai API and display the bounding box around the face(s) in the image
   onSubmit = (event) => {
     event.preventDefault();
     const checkValidUrl = isUrl(this.state.input);
@@ -102,6 +109,7 @@ class App extends Component {
             })
             .catch(console.log);
         }
+        // Passes bounding box coordinates from calculateFaceLocation function into the displayFaceBox function, which updates the boxes array state
         this.displayFaceBox(this.calculateFaceLocation(response));
       })
       .catch((err) => console.log(err));
@@ -128,7 +136,7 @@ class App extends Component {
 
   // Render components and change routes based on whether the user is signing in or registering
   render() {
-    const { isSignedIn, imageUrl, route, box } = this.state;
+    const { isSignedIn, imageUrl, route, boxes } = this.state;
     const currentPage = this.state.route;
     return (
       <div className="App">
@@ -139,16 +147,13 @@ class App extends Component {
         />
         {route === "home" ? (
           <main className="container">
-            <Rank
-              name={this.state.user.name}
-              entries={this.state.user.entries}
-            />
+            <Hero />
             <ImageLinkForm
               onInputChange={this.onInputChange}
               onSubmit={this.onSubmit}
               isUrlValid={this.state.isUrlValid}
             />
-            <FaceRecognition box={box} imageUrl={imageUrl} />
+            <FaceRecognition boxes={boxes} imageUrl={imageUrl} />
           </main>
         ) : route === "signin" ? (
           <Signin loadUser={this.loadUser} onRouteChange={this.onRouteChange} />

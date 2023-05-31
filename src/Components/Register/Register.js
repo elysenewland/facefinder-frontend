@@ -71,7 +71,7 @@ class Register extends React.Component {
     return (
       <main className="login-grid">
         <div className="login-form">
-          <a className="login-logo" href="/">
+          <a className="login-logo" href="/#">
             <img src="/images/FaceFinder-Logo.svg" alt="Face Finder Logo" />
           </a>
           <div className="login-text">

@@ -1,9 +1,9 @@
-.rank-text {
+.hero-wrapper {
   text-align: center;
   padding: 5rem 0 2rem 0;
 }
 
-.rank-header {
+.hero-header {
   font-size: 3rem;
   font-weight: 500;
   line-height: 1.1;
@@ -12,23 +12,23 @@
 }
 
 @media (min-width: 640px) {
-  .rank-header {
+  .hero-header {
     font-size: 4.5rem;
     line-height: 1.1;
   }
 }
 
 @media (min-width: 1280px) {
-  .rank-header {
+  .hero-header {
     margin: 0 10rem;
   }
 }
 
-.rank-header-attention {
+.hero-header-attention {
   color: var(--primary);
 }
 
-.rank-entries {
+.hero-text {
   color: var(--gray-400);
   font-size: 1.125rem;
   line-height: 2rem;

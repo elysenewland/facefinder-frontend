@@ -1,17 +1,18 @@
 import React from "react";
-import "./Rank.css";
+import "./Hero.css";
 
-const Rank = ({ name, entries }) => {
+const Hero = () => {
   return (
-    <div className="rank-text">
-      <h1 className="rank-header">
+    <div className="hero-wrapper">
+      <h1 className="hero-header">
         FaceFinder{" "}
-        <span className="rank-header-attention"> detects faces </span> in your
+        <span className="hero-header-attention"> detects faces </span> in your
         pictures.
       </h1>
-      <p className="rank-entries">
+      <p className="hero-text">
         Give it a try! Paste a link to an image on the web to see it in action.
       </p>
+
       {/* Displays name and entry count. Will leave out of the app as it doesn't make a lot of functional sense */}
       {/* <p className="rank-entries">
         {` ${name}, your current entry count is `}
@@ -21,4 +22,4 @@ const Rank = ({ name, entries }) => {
   );
 };
 
-export default Rank;
+export default Hero;

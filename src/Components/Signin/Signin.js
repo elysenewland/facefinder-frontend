@@ -10,6 +10,7 @@ class SignIn extends React.Component {
       loginError: false,
     };
   }
+
   // Set signInEmail prop to the user's entered email input
   onEmailChange = (event) => {
     this.setState({ signInEmail: event.target.value });
@@ -48,7 +49,7 @@ class SignIn extends React.Component {
     return (
       <main className="login-grid">
         <div className="login-form">
-          <a className="login-logo" href="/">
+          <a className="login-logo" href="/#">
             <img src="/images/FaceFinder-Logo.svg" alt="Face Finder Logo" />
           </a>
           <div className="login-text">
