@@ -23,7 +23,7 @@ class SignIn extends React.Component {
 
   // When the form is submitted, send the input to the server, check if the user id is present, and if so direct the user to their home page. If user id is not valid, display loginError message
   onSubmitSignIn = (event) => {
-    fetch("http://localhost:3000/signin", {
+    fetch("https://facefinder-backend.onrender.com/signin", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

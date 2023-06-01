@@ -45,7 +45,7 @@ class Register extends React.Component {
       event.preventDefault();
       return;
     }
-    fetch("http://localhost:3000/register", {
+    fetch("https://facefinder-backend.onrender.com/register", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
